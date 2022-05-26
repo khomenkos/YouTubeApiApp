@@ -1,0 +1,20 @@
+PODS:
+  - drawer-view (1.0.4)
+  - Kingfisher (7.2.0)
+
+DEPENDENCIES:
+  - drawer-view (~> 1.0.4)
+  - Kingfisher
+
+SPEC REPOS:
+  trunk:
+    - drawer-view
+    - Kingfisher
+
+SPEC CHECKSUMS:
+  drawer-view: b000b1940a97bb4ade18b773219c8430e6da843e
+  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
+
+PODFILE CHECKSUM: 9e87b207e97c967b3801f42b3479dcb2c0c0556a
+
+COCOAPODS: 1.11.3
