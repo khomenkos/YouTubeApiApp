@@ -6,16 +6,15 @@
 //
 
 import UIKit
+import drawer_view
 
 class HomeViewController: UIViewController {
-    
+        
     @IBOutlet weak var channelCollectionView: UICollectionView!
     @IBOutlet weak var playlistFirstCollectionView: UICollectionView!
     @IBOutlet weak var playlistSecondCollectionView: UICollectionView!
     
     @IBOutlet weak var pageControl: UIPageControl!
-    
-    
     
     var playlist_1: [Video] = [
         .init(id: "id1", name: "Kalush", image: "https://zn.ua/img/forall/u/495/25/3df1994c268918ed33a990490bb74e0e.jpg", viewsCount: "100 000 000 000"),
@@ -39,7 +38,6 @@ class HomeViewController: UIViewController {
     ]
         
     var scrollingTimer: Timer?
-    
     var currentcellIndex = 0
     
     override func viewDidLoad() {
@@ -52,6 +50,10 @@ class HomeViewController: UIViewController {
         scrollingTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(slideToNext), userInfo: nil, repeats: true)
 
         pageControl.numberOfPages = channels.count
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     private func registerCells() {
@@ -105,6 +107,20 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.setup(channel: channels[indexPath.row])
             return cell
         default: return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == channelCollectionView {
+            let controller = ListVideoViewController.instantiate()
+            controller.channel = channels[indexPath.row]
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let controller = PlayerViewController.instantiate()
+            controller.video = collectionView == playlistFirstCollectionView ? playlist_1[indexPath.row] : playlist_2[indexPath.row]
+            navigationController?.present(controller, animated: true, completion: nil)
+            //navigationController?.pushViewController(controller, animated: true)
+
         }
     }
 }

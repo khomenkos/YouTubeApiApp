@@ -8,10 +8,18 @@
 import Foundation
 import UIKit
 
-struct Playlist {
-    let id, name, image, viewsCount: String
+struct Playlist: Decodable {
+    struct PlaylistContentDetails: Decodable {
+        let videoId: String
+        
+        enum CodingKeys: String, CodingKey {
+            case videoId
+        }
+    }
+    
+    let contentDetails: PlaylistContentDetails
+    
+    enum CodingKeys: String, CodingKey {
+        case contentDetails
+    }
 }
-
-//struct Playlist: Decodable {
-//        let id, title, image: String?
-//}

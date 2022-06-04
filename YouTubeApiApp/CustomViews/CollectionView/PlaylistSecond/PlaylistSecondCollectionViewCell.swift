@@ -16,7 +16,7 @@ class PlaylistSecondCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var videolNameLabel: UILabel!
     @IBOutlet weak var viewsLabel: UILabel!
     
-    func setup (video: Video) {
+    func setup (video: VideoListItem) {
         videolNameLabel.text = video.name
         viewsLabel.text = video.viewsCount
         videoImageView.kf.setImage(with: video.image.asUrl)
