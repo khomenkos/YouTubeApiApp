@@ -1,20 +1,20 @@
 PODS:
-  - drawer-view (1.0.4)
+  - Alamofire (5.6.1)
   - Kingfisher (7.2.0)
 
 DEPENDENCIES:
-  - drawer-view (~> 1.0.4)
+  - Alamofire
   - Kingfisher
 
 SPEC REPOS:
   trunk:
-    - drawer-view
+    - Alamofire
     - Kingfisher
 
 SPEC CHECKSUMS:
-  drawer-view: b000b1940a97bb4ade18b773219c8430e6da843e
+  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
 
-PODFILE CHECKSUM: 9e87b207e97c967b3801f42b3479dcb2c0c0556a
+PODFILE CHECKSUM: 6e60b19c7e6ad1efae0d37ab1f318409221369dd
 
 COCOAPODS: 1.11.3

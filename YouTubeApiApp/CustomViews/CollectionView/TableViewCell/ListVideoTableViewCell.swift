@@ -15,10 +15,10 @@ class ListVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var viewsLbl: UILabel!
     
-    func setup(video: Video) {
-        videoImageView.kf.setImage(with: video.image.asUrl)
-        titleLbl.text = video.name
-        viewsLbl.text = video.viewsCount
+    func setup(video: Items) {
+        videoImageView.kf.setImage(with: video.snippet?.thumbnails?.medium?.url.asUrl)
+        titleLbl.text = video.snippet?.channelTitle
+        viewsLbl.text = video.snippet?.description
     }
     
 }

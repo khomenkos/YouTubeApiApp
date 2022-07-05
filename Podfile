@@ -8,6 +8,6 @@ target 'YouTubeApiApp' do
   # Pods for YouTubeApiApp
 
 pod "Kingfisher"
-pod 'drawer-view', '~> 1.0.4'
+pod 'Alamofire'
 
 end

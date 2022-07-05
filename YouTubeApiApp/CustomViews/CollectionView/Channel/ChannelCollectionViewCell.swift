@@ -2,7 +2,7 @@
 //  ChannelCollectionViewCell.swift
 //  YouTubeApiApp
 //
-//  Created by  Sasha Khomenko on 25.05.2022.
+//  Created by  Sasha Khomenko on 04.07.2022.
 //
 
 import UIKit
@@ -16,8 +16,10 @@ class ChannelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var channelNameLabel: UILabel!
     @IBOutlet weak var subLabel: UILabel!
     
-    func setup (channel: Channel) {
-        channelNameLabel.text = channel.name
-        subLabel.text = channel.subscribers
-        channelImageView.kf.setImage(with: channel.image.asUrl)
-    }}
+    func setup (channel: ChannelItem) {
+        channelNameLabel.text = channel.brandingSettings?.channel?.title
+        subLabel.text = channel.statistics?.subscriberCount
+        channelImageView.kf.setImage(with: channel.brandingSettings?.image?.bannerExternalUrl?.asUrl)
+    }
+
+}

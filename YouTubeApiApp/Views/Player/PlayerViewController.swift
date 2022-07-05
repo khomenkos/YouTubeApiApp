@@ -8,9 +8,12 @@
 import UIKit
 import AVFoundation
 
+import MediaPlayer
+import AVKit
+
 class PlayerViewController: UIViewController {
 
-    var video: Video!
+    var video: Items!
     
     
     @IBOutlet weak var closeView: UIView!
@@ -21,9 +24,13 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var videoTitleLabel: UILabel!
     @IBOutlet weak var viewsLabel: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
-    
     @IBOutlet weak var volumeSlider: UISlider!
     
+    
+    var presenter: PlayerPresenter<PlayerViewController>!
+
+    
+    var playlist_1: [Video] = []
 //    var playlist_1: [Video] = [
 //        .init(id: "id1", name: "Kalush", image: "https://zn.ua/img/forall/u/495/25/3df1994c268918ed33a990490bb74e0e.jpg", viewsCount: "100 000 000 000"),
 //        .init(id: "id1", name: "Maneskin", image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Maneskin_2018.jpg", viewsCount: "100 000 000 000"),
@@ -35,12 +42,13 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         setup()
 
-        // Do any additional setup after loading the view.
     }
     
     func setup() {
-        videoTitleLabel.text = video.name
-        viewsLabel.text = video.viewsCount
+        videoTitleLabel.text = video.snippet?.title
+        viewsLabel.text = video.statistics?.viewCount
+        
+
     }
 
     
@@ -60,4 +68,23 @@ class PlayerViewController: UIViewController {
         
     }
     
+}
+
+
+extension PlayerViewController: PlayerView {
+    
+    func update() {
+        
+    }
+}
+
+extension MPVolumeView {
+  static func setVolume(_ volume: Float) {
+    let volumeView = MPVolumeView()
+    let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
+
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+      slider?.value = volume
+    }
+  }
 }

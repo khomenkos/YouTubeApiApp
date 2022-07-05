@@ -6,121 +6,152 @@
 //
 
 import UIKit
-import drawer_view
 
 class HomeViewController: UIViewController {
         
-    @IBOutlet weak var channelCollectionView: UICollectionView!
-    @IBOutlet weak var playlistFirstCollectionView: UICollectionView!
-    @IBOutlet weak var playlistSecondCollectionView: UICollectionView!
+    var playList: [Playlist] = []
+    var videoList: [Items] = []
+    var channels: [ChannelItem] = []
     
-    @IBOutlet weak var pageControl: UIPageControl!
+//    var channels: [ChannelItem] = [
+//    .init(id: "1", statistics: ChannelStatistics.init(subscriberCount: "1"), brandingSettings: BrandingSettings.init(channel: ChannelInfo.init(title: "1"), image: ChannelImage.init(bannerExternalUrl: "https://avatars.githubusercontent.com/u/10806861")), contentDetails: ChannelContentDetails.init(relatedPlaylists: ChannelRelatedPlaylists.init(uploads: "1")), snippet: Snippet.init(publishedAt: "1", channelId: "1", title: "1", description: "1", thumbnails: Thumbnails.init(medium: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), high: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), standard: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), maxres: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1)), channelTitle: "1")),
+//    .init(id: "1", statistics: ChannelStatistics.init(subscriberCount: "1"), brandingSettings: BrandingSettings.init(channel: ChannelInfo.init(title: "1"), image: ChannelImage.init(bannerExternalUrl: "https://avatars.githubusercontent.com/u/10806861")), contentDetails: ChannelContentDetails.init(relatedPlaylists: ChannelRelatedPlaylists.init(uploads: "1")), snippet: Snippet.init(publishedAt: "1", channelId: "1", title: "1", description: "1", thumbnails: Thumbnails.init(medium: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), high: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), standard: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), maxres: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1)), channelTitle: "1")),
+//    .init(id: "1", statistics: ChannelStatistics.init(subscriberCount: "1"), brandingSettings: BrandingSettings.init(channel: ChannelInfo.init(title: "1"), image: ChannelImage.init(bannerExternalUrl: "https://avatars.githubusercontent.com/u/10806861")), contentDetails: ChannelContentDetails.init(relatedPlaylists: ChannelRelatedPlaylists.init(uploads: "1")), snippet: Snippet.init(publishedAt: "1", channelId: "1", title: "1", description: "1", thumbnails: Thumbnails.init(medium: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), high: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), standard: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), maxres: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1)), channelTitle: "1"))]
+//
+//    var videoList: [Items] = [
+//        .init(kind: "1", etag: "1", snippet: Snippet.init(publishedAt: "1", channelId: "1", title: "githubusercontent", description: "1", thumbnails: Thumbnails.init(medium: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), high: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), standard: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), maxres: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1)), channelTitle: "1"), statistics: Statistics.init(viewCount: "50 000 000"), id: "1", contentDetails: ContentDetails.init(videoId: "1")),
+//        .init(kind: "1", etag: "1", snippet: Snippet.init(publishedAt: "1", channelId: "1", title: "githubusercontent", description: "1", thumbnails: Thumbnails.init(medium: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), high: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), standard: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1), maxres: ThumbnailInfo.init(url: "https://avatars.githubusercontent.com/u/10806861", width: 1, height: 1)), channelTitle: "1"), statistics: Statistics.init(viewCount: "50 000 000"), id: "1", contentDetails: ContentDetails.init(videoId: "1"))
+//    ]
     
-    var playlist_1: [Video] = [
-        .init(id: "id1", name: "Kalush", image: "https://zn.ua/img/forall/u/495/25/3df1994c268918ed33a990490bb74e0e.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Maneskin", image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Maneskin_2018.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Monatic", image: "https://pre-party.com.ua/thumbnails/89/8944882ebaa3310ab23e460a0fff2b1b.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Potap", image: "https://showbiz.24tv.ua/resources/photos/news/202205/1987415.jpg?v=1653392240000&w=1200&h=675&fit=cover", viewsCount: "100 000 000 000")
-    ]
+    @IBOutlet weak var youtubeTableView: UITableView!
     
-    var playlist_2: [Video] = [
-        .init(id: "id1", name: "Maneskin", image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Maneskin_2018.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Kalush", image: "https://zn.ua/img/forall/u/495/25/3df1994c268918ed33a990490bb74e0e.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Monatic", image: "https://pre-party.com.ua/thumbnails/89/8944882ebaa3310ab23e460a0fff2b1b.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "OG Buda", image: "https://www.songslyrics.ru/wp-content/uploads/2021/07/OG-Buda-5-624x429.jpg", viewsCount: "100 000 000 000")
-    ]
+    let playlistId = "PLN1mxegxWPd0F2qVdZUBJ7mwWaHONMf6N"
+    let playlistId1 = "PLN1mxegxWPd3Gtec8sCAsmSv_Gf9u0FEE"
     
-    var channels: [Channel] = [
-        .init(id: "id1", name: "OG Buda", image: "https://www.songslyrics.ru/wp-content/uploads/2021/07/OG-Buda-5-624x429.jpg", subscribers: "1 000 000"),
-        .init(id: "id1", name: "Morgenstern", image: "https://www.iphones.ru/wp-content/uploads/2021/07/9F4CB47C-C8AF-4224-B828-2ED1D7645E23-1180x720.jpeg", subscribers: "1 000 000"),
-        .init(id: "id1", name: "Egor Kreed", image: "https://m.the-flow.ru/uploads/images/origin/07/40/34/65/43/f1df60c.png", subscribers: "1 000 000"),
-        .init(id: "id1", name: "Potap", image: "https://showbiz.24tv.ua/resources/photos/news/202205/1987415.jpg?v=1653392240000&w=1200&h=675&fit=cover", subscribers: "1 000 000")
-    ]
+    let channelId = ["UCEuOwB9vSL1oPKGNdONB4ig", "UCfM3zsQsOnfWNUppiycmBuw", "UCQjw3b3Ay5zMmEHUAxL93Rw", "UCeekxg1vju_sjIK9KjJJLYg"]
         
-    var scrollingTimer: Timer?
-    var currentcellIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        playlistSecondCollectionView.dataSource = self
-        playlistSecondCollectionView.delegate = self
         registerCells()
-        
-        scrollingTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(slideToNext), userInfo: nil, repeats: true)
 
-        pageControl.numberOfPages = channels.count
+        NetworkService.shared.getPlaylist(playlistId: playlistId1) { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                guard let self = self else { return }
+                self.getVideolist(videos: data.items)
+                self.youtubeTableView.reloadData()
+            case .failure(let error):
+                print("The error is: \(error.localizedDescription)")
+            }
+        }
+        
+        NetworkService.shared.getPlaylist(playlistId: playlistId) { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                guard let self = self else { return }
+                self.getVideolist(videos: data.items)
+                self.youtubeTableView.reloadData()
+            case .failure(let error):
+                print("The error is: \(error.localizedDescription)")
+            }
+        }
+        
+        NetworkService.shared.getChannel(channelId: channelId) { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                guard let self = self else { return }
+                self.channels = data.items ?? []
+                self.youtubeTableView.reloadData()
+            case .failure(let error):
+                print("The error is: \(error.localizedDescription)")
+            }
+        }
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return true
+    private func getVideolist(videos: [Playlist]) {
+        var videoIds: [String] = []
+        for item in videos {
+            videoIds.append(item.contentDetails.videoId)
+        }
+        print("hello")
+        print(videoIds)
+
+        NetworkService.shared.getVideoList(videoId: videoIds) { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                guard let self = self else { return }
+                self.videoList = data.items ?? []
+                self.youtubeTableView.reloadData()
+
+            case .failure(let error):
+                print("The error is: \(error.localizedDescription)")
+            }
+        }
     }
     
     private func registerCells() {
-        playlistFirstCollectionView.register(UINib(nibName: PlaylistFirstCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: PlaylistFirstCollectionViewCell.identifier)
-        playlistSecondCollectionView.register(UINib(nibName: PlaylistSecondCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: PlaylistSecondCollectionViewCell.identifier)
-        channelCollectionView.register(UINib(nibName: ChannelCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: ChannelCollectionViewCell.identifier)
+        
+        youtubeTableView.delegate = self
+        youtubeTableView.dataSource = self
+        youtubeTableView.rowHeight = UITableView.automaticDimension
+        youtubeTableView.estimatedRowHeight = 44
+        
+        youtubeTableView.register(UINib.init(nibName: "ChannelTableViewCell", bundle: nil), forCellReuseIdentifier: "ChannelTableViewCell")
+        youtubeTableView.register(UINib.init(nibName: "PlaylistTableViewCell", bundle: nil), forCellReuseIdentifier: "PlaylistTableViewCell")
     }
     
-    @objc func slideToNext() {
-        
-        if currentcellIndex < channels.count - 1 {
-            currentcellIndex = currentcellIndex + 1
-        } else {
-            currentcellIndex = 0
-        }
-        
-        pageControl.currentPage = currentcellIndex
-        
-        channelCollectionView.scrollToItem(at: IndexPath(item: currentcellIndex, section: 0), at: .right, animated: true)
-    }
+//    func openPlayer(videoId: String, playlist: [Items]) {
+//        let newViewController = PlayerViewController.instantiate()
+//
+//        var allVideoIds: [String] = []
+//        for item in playlist {
+//            allVideoIds.append(item.id)
+//        }
+//
+//        newViewController.presenter.allVideoIds = allVideoIds
+//        newViewController.presenter.currentVideoId = videoId
+//        newViewController.presenter.videoList = playlist
+//
+//        self.present(newViewController, animated: true, completion: nil)
+//    }
+
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        switch collectionView {
-        case playlistFirstCollectionView:
-            return playlist_1.count
-        case playlistSecondCollectionView:
-            return playlist_2.count
-        case channelCollectionView:
-            return channels.count
-        default: return 0
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        switch collectionView {
-        case playlistFirstCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistFirstCollectionViewCell.identifier, for: indexPath) as! PlaylistFirstCollectionViewCell
-            cell.setup(video: playlist_1[indexPath.row])
-            return cell
-        case playlistSecondCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistSecondCollectionViewCell.identifier, for: indexPath) as! PlaylistSecondCollectionViewCell
-            cell.setup(video: playlist_2[indexPath.row])
-            return cell
-        case channelCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChannelCollectionViewCell.identifier, for: indexPath) as! ChannelCollectionViewCell
-            cell.setup(channel: channels[indexPath.row])
-            return cell
-        default: return UICollectionViewCell()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == channelCollectionView {
-            let controller = ListVideoViewController.instantiate()
-            controller.channel = channels[indexPath.row]
-            navigationController?.pushViewController(controller, animated: true)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let channelsCell = tableView.dequeueReusableCell(withIdentifier: "ChannelTableViewCell", for: indexPath) as! ChannelTableViewCell
+            channelsCell.setup(channel: channels)
+            return channelsCell
+        } else if indexPath.row == 1 {
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "PlaylistHeaderTableViewCell", for: indexPath) as! PlaylistHeaderTableViewCell
+            return headerCell
+        } else if indexPath.row == 2 {
+            let playlistCell  = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
+            playlistCell.setup(video: videoList)
+            //playlistCell.changeCellHeight(height: 152)
+            return playlistCell
+        } else if indexPath.row == 3 {
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "PlaylistHeaderTableViewCell", for: indexPath) as! PlaylistHeaderTableViewCell
+            return headerCell
         } else {
-            let controller = PlayerViewController.instantiate()
-            controller.video = collectionView == playlistFirstCollectionView ? playlist_1[indexPath.row] : playlist_2[indexPath.row]
-            navigationController?.present(controller, animated: true, completion: nil)
-            //navigationController?.pushViewController(controller, animated: true)
-
+            let playlistCell  = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
+            playlistCell.setup(video: videoList)
+            return playlistCell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if let cell = cell as? PlaylistTableViewCell {
+//            cell.openVideoTappedCallback = { [weak self] (videoId, allVideoIds) in
+//                self?.openPlayer(videoId: videoId, playlist: allVideoIds)
+//            }
+//        }
     }
 }

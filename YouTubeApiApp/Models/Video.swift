@@ -8,36 +8,52 @@
 import Foundation
 
 
-//struct Video {
-//    let id, name, image, viewsCount: String
+//struct Video: Decodable {
+//    let id, name, image: String?
+//    let viewsCount: String?
+//    var formattedViewsCount: String {
+//        return "\(viewsCount ?? "") просмотров"
+//    }
 //}
 
-struct yt :Decodable{
-    let kind:String
-    let regionCode:String
-    let items:[items]
+public struct Video: Decodable {
+    let kind: String?
+    let etag: String?
+    let items: [Items]?
 }
-struct items:Decodable {
-    let etag:String?
-    let snippet:snippet
-    let id:id!
 
+public struct Items: Decodable {
+    let kind: String?
+    let etag: String?
+    let snippet: Snippet?
+    let statistics: Statistics?
+    let id: String
+    let contentDetails: ContentDetails?
+}
 
+public struct Snippet: Decodable {
+    let publishedAt: String?
+    let channelId: String?
+    let title: String?
+    let description: String?
+    let thumbnails: Thumbnails?
+    let channelTitle: String?
 }
-struct snippet:Decodable {
-    let title:String!
-    let thumbnails:thumbnails
 
+public struct Statistics: Decodable {
+    let viewCount: String?
 }
-struct id:Decodable {
-    let videoId:String!
+
+public struct Thumbnails: Decodable {
+    let medium: ThumbnailInfo?
+    let high: ThumbnailInfo?
+    let standard: ThumbnailInfo?
+    let maxres: ThumbnailInfo?
 }
-struct thumbnails:Decodable {
-    let medium:medium!
+
+public struct ThumbnailInfo: Decodable {
+    let url: String
+    let width: Int?
+    let height: Int?
 }
-struct medium:Decodable {
-    let url:String!
-}
-struct getYouTubeDownloadLink:Decodable {
-    let file: String!
-}
+

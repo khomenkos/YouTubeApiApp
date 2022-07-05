@@ -11,19 +11,20 @@ class ListVideoViewController: UIViewController {
 
     
     @IBOutlet weak var tableView: UITableView!
-    var channel: Channel!
+    var channel: ChannelItem!
     
-    var playlist: [Video] = [
-        .init(id: "id1", name: "Maneskin", image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Maneskin_2018.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Kalush", image: "https://zn.ua/img/forall/u/495/25/3df1994c268918ed33a990490bb74e0e.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "Monatic", image: "https://pre-party.com.ua/thumbnails/89/8944882ebaa3310ab23e460a0fff2b1b.jpg", viewsCount: "100 000 000 000"),
-        .init(id: "id1", name: "OG Buda", image: "https://www.songslyrics.ru/wp-content/uploads/2021/07/OG-Buda-5-624x429.jpg", viewsCount: "100 000 000 000")
-    ]
+    var playlist: [Items] = []
+//    var playlist: [Video] = [
+//        .init(id: "id1", name: "Maneskin", image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Maneskin_2018.jpg", viewsCount: "100 000 000 000"),
+//        .init(id: "id1", name: "Kalush", image: "https://zn.ua/img/forall/u/495/25/3df1994c268918ed33a990490bb74e0e.jpg", viewsCount: "100 000 000 000"),
+//        .init(id: "id1", name: "Monatic", image: "https://pre-party.com.ua/thumbnails/89/8944882ebaa3310ab23e460a0fff2b1b.jpg", viewsCount: "100 000 000 000"),
+//        .init(id: "id1", name: "OG Buda", image: "https://www.songslyrics.ru/wp-content/uploads/2021/07/OG-Buda-5-624x429.jpg", viewsCount: "100 000 000 000")
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = channel.name
+        title = channel.brandingSettings?.channel?.title
         registerCells()
         
     }
